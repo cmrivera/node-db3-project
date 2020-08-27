@@ -9,18 +9,23 @@ module.exports = {
   remove,
 };
 
+//for get router to find alll schemes
 function find() {
   return db("schemes");
 }
 
+//for get router to find scheme by Id
 function findById(id) {
   return db("schemes").where({ id }).first();
 }
 
+//For router.post to add a new scheme
 function add(schemeData) {
   return db("schemes").insert(schemeData);
 }
 
+//router.get for steps of the schemes
+//join schemes and steps of schemeid
 function findSteps(id) {
   return db("steps as s")
     .join("schemes as k", "k.id", "s.scheme_id")
@@ -29,6 +34,7 @@ function findSteps(id) {
     .where({ scheme_id: id });
 }
 
+//router.put to update scheme. find scheme with id then update.
 function update(changes, id) {
   return db("schemes")
     .where({ id })
@@ -38,6 +44,7 @@ function update(changes, id) {
     });
 }
 
+//router.delete request to find scheme with id and then delete
 function remove(id) {
   return db("schemes").where({ id }).del();
 }
